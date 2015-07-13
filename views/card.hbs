@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="bingoCardApp">
+<head>
+  <title>B-I-N-G-O</title>
+  <link href="/card.css" rel="stylesheet" />
+</head>
+<body ng-controller="CardController"
+    ng-class="{ isWinner: winner }">
+    
+  <div class="rule">
+    <select ng-model="cardRule">
+      <option value="line">Straight Line</option>
+      <option value="fullCard">Full Card</option>
+      <option value="corners">Four Corners</option>
+      <option value="outline">Outline</option>
+      <option value="hashtag">Hashtag</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <div class="column">
+      <div class="header">B</div>
+      {{#each b}}
+      <div class="square"
+        ng-class="{ marked: board[{{ row }}][{{ column }}] }" 
+        ng-click="clickSquare({{ row }}, {{ column }})">{{ value }}</div>
+      {{/each}}
+    </div>
+    
+    <div class="column">
+      <div class="header">I</div>
+      {{#each i}}
+      <div class="square" 
+        ng-class="{ marked: board[{{ row }}][{{ column }}] }" 
+        ng-click="clickSquare({{ row }}, {{ column }})">{{ value }}</div>
+      {{/each}}
+    </div>
+    
+    <div class="column">
+      <div class="header">N</div>
+      {{#each n}}
+      <div class="square" 
+        ng-class="{ marked: board[{{ row }}][{{ column }}] }" 
+        ng-click="clickSquare({{ row }}, {{ column }})">{{ value }}</div>
+      {{/each}}
+    </div>
+    
+    <div class="column">
+      <div class="header">G</div>
+      {{#each g}}
+      <div class="square" 
+        ng-class="{ marked: board[{{ row }}][{{ column }}] }" 
+        ng-click="clickSquare({{ row }}, {{ column }})">{{ value }}</div>
+      {{/each}}
+    </div>
+    
+    <div class="column">
+      <div class="header">O</div>
+      {{#each o}}
+      <div class="square" 
+        ng-class="{ marked: board[{{ row }}][{{ column }}] }" 
+        ng-click="clickSquare({{ row }}, {{ column }})">{{ value }}</div>
+      {{/each}}
+    </div>
+  </div>
+
+  <script src="/libs/angular.js"></script>
+  <script src="/libs/underscore.js"></script>
+  <script src="/card.js"></script>
+
+</body>
+</html>
