@@ -10,15 +10,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set("view engine", "hbs")
 
-var createColumnNumbers = function(min, max, row) {
+var createColumnNumbers = function(min, max, column) {
   var range = u.range(min, max)
   var sample = u.sample(range, 5)
   
   return u.map(sample, function(num, index) { 
     return { 
       value: num,
-      row: row,
-      column: index
+      row: index,
+      column: column
     } 
   })
 }

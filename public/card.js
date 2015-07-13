@@ -19,16 +19,70 @@ app.controller("CardController", function($scope){
       case "line":
         straightLine()
       case "fullCard":
-
+        full()
       case "corners":
-
+        fourCorners()
       case "outline":
-
+        Outlines()
       case "hashtag":
-      
+        hashTheTag()
     }
   }
 
+  var hashTheTag = function(){
+    var cols = _.reduce($scope.board, function(memory, row){
+      return _.map(row, function(cell, index){
+        if (memory[index] === 0) {
+          return 0
+        }
+        return cell
+      })
+    }, [ 1, 1, 1, 1, 1 ])
+
+     var row1 = _.every($scope.board[1], _.identity)
+     var column1 = _.every($scope.board[3], _.identity)
+
+     if(row1 && column1){
+      $scope.winner = true
+     }
+
+  }
+  var Outlines = function(){
+     var cols = _.reduce($scope.board, function(memory, row){
+      return _.map(row, function(cell, index){
+        if (memory[index] === 0) {
+          return 0
+        }
+        return cell
+      })
+    }, [ 1, 1, 1, 1, 1 ])
+
+     var row1 = _.every($scope.board[0], _.identity)
+     var column1 = _.every($scope.board[4], _.identity)
+
+     if(row1 && column1){
+      $scope.winner = true
+     }
+     
+
+     
+  }
+
+  var fourCorners = function(){
+     var fourthCorner = 1
+      _.times(5, function(i){
+    
+      if (fourthCorner === 0) {
+        return 0
+      }
+      fourthCorner = $scope.board[0][0] && $scope.board[0][4] && $scope.board[4][4] && $scope.board[4][0]
+    })
+
+      if(fourthCorner){
+        $scope.winner = true
+      }
+  }
+  
   var straightLine = function() {
     var cols = _.reduce($scope.board, function(memory, row){
       return _.map(row, function(cell, index){
@@ -55,6 +109,7 @@ app.controller("CardController", function($scope){
 
     var rightDiagonalMatch = 1
     _.times(5, function(i){
+
       if (rightDiagonalMatch === 0) {
         return 0
       }
@@ -67,5 +122,22 @@ app.controller("CardController", function($scope){
       $scope.winner = true
     }
   }
+
+var full = function(){
+    var cols = _.reduce($scope.board, function(memory, row){
+      return _.map(row, function(cell, index){
+        if (memory[index] === 0) {
+          return 0
+        }
+        return cell
+      })
+    }, [ 1, 1, 1, 1, 1 ])
+
+    var matchInColumns = _.every(cols)
+    if (matchInColumns ) {
+      $scope.winner = true
+    }
+  }
+
 
 })
